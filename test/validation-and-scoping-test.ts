@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, test } from 'vitest';
 import { /*AstNode, LangiumDocument, ReferenceDescription,*/ AstNode, EmptyFileSystem, LangiumDocument } from 'langium';
 import { parseDocument } from 'langium/test';
 import { createHelloWorld2Services } from '../src/language-server/hello-world-2-module';
@@ -11,8 +11,8 @@ const services = createHelloWorld2Services(EmptyFileSystem).HelloWorld2;
 //console.log(services)
 
 describe('Test Scoping', () => {
-    it('parseIxnstrPRELU', () => {
-        assertNoErrors(`
+    test('Find all references', async () => {
+        await assertNoErrors(`
         person xxxx
         Hello yyyyy!
         `)
@@ -21,7 +21,9 @@ describe('Test Scoping', () => {
 });
 
 async function assertNoErrors(modelText: string) {
+    console.log("aaaa")
     var doc : LangiumDocument<AstNode> = await parseDocument(services, modelText)
+    console.log("bbbbbb")
     await services.shared.workspace.DocumentBuilder.build([doc]);
     const model = (doc.parseResult.value as Model);
     console.log("xxxx1"+model)
