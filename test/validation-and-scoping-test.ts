@@ -24,7 +24,8 @@ async function assertNoErrors(modelText: string) {
     console.log("aaaa")
     var doc : LangiumDocument<AstNode> = await parseDocument(services, modelText)
     console.log("bbbbbb")
-    //await services.shared.workspace.DocumentBuilder.build([doc]);
+    const db = services.shared.workspace.DocumentBuilder
+    await db.build([doc], {validationChecks:'all'});
     const model = (doc.parseResult.value as Model);
     console.log("xxxx1 "+doc.diagnostics?.length)
     console.log("xxxx22 "+doc.references[0].error?.message)
