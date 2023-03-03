@@ -1,5 +1,5 @@
 import { describe, test } from 'vitest';
-import { /*AstNode, LangiumDocument, ReferenceDescription,*/ AstNode, EmptyFileSystem, LangiumDocument } from 'langium';
+import { /*AstNode, LangiumDocument, ReferenceDescription,*/ AstNode, EmptyFileSystem, isLinkingError, LangiumDocument } from 'langium';
 import { parseDocument } from 'langium/test';
 import { createHelloWorld2Services } from '../src/language-server/hello-world-2-module';
 //import { parse } from 'path';
@@ -24,9 +24,9 @@ async function assertNoErrors(modelText: string) {
     console.log("aaaa")
     var doc : LangiumDocument<AstNode> = await parseDocument(services, modelText)
     console.log("bbbbbb")
-    await services.shared.workspace.DocumentBuilder.build([doc]);
+    //await services.shared.workspace.DocumentBuilder.build([doc]);
     const model = (doc.parseResult.value as Model);
-    console.log("xxxx1"+model)
-    console.log("xxxx22"+doc.diagnostics)
+    console.log("xxxx1 "+doc.diagnostics?.length)
+    console.log("xxxx22 "+doc.references[0].error?.message)
     //expectNoErrors(doc)
 }
