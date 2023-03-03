@@ -23,7 +23,7 @@ export class HelloWorld2Validator {
         if (person.name) {
             const firstChar = person.name.substring(0, 1);
             if (firstChar.toUpperCase() !== firstChar) {
-                accept('warning', 'Person name should start with a capital.', { node: person, property: 'name' });
+                accept('error', 'Person name should start with a capital.', { node: person, property: 'name' });
             }
         }
     }
